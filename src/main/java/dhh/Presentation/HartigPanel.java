@@ -1,8 +1,8 @@
-package dhh.Presentation;
+package dhh.presentation;
 
-import dhh.BusinessLogic.OrderManager;
-import dhh.Domain.Dish;
-import dhh.Domain.Order;
+import dhh.businesslogic.OrderManager;
+import dhh.domain.Dish;
+import dhh.domain.Order;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;

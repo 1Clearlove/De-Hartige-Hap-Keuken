@@ -1,7 +1,6 @@
-package dhh.Main;
+package dhh.main;
 
-import dhh.Presentation.HartigFrame;
-import dhh.Presentation.LoginFrame;
+import dhh.presentation.LoginFrame;
 
 public class Main {
 

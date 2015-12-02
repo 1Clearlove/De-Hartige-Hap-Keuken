@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dhh.Presentation;
+package dhh.presentation;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import dhh.BusinessLogic.LoginManager;
-import dhh.BusinessLogic.EmailValidator;
+import dhh.businesslogic.LoginManager;
+import dhh.businesslogic.EmailValidator;
 
 /**
  *

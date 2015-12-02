@@ -1,4 +1,4 @@
-package dhh.Domain;
+package dhh.domain;
 
 import java.util.ArrayList;
 import java.util.Date;

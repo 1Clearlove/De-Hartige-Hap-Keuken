@@ -1,4 +1,4 @@
-package dhh.DataStorage;
+package dhh.datastorage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

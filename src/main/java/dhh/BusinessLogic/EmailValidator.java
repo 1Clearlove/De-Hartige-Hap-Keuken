@@ -1,4 +1,4 @@
-package dhh.BusinessLogic;
+package dhh.businesslogic;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

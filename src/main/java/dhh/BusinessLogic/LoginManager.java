@@ -1,6 +1,6 @@
-package dhh.BusinessLogic;
+package dhh.businesslogic;
 
-import dhh.DataStorage.Login;
+import dhh.datastorage.Login;
 import java.sql.*;
 import java.util.*;
 

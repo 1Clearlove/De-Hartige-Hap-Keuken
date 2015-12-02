@@ -1,4 +1,4 @@
-package dhh.BusinessLogic;
+package dhh.businesslogic;
 
 public class MenuManager {
     public MenuManager() {

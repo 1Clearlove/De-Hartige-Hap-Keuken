@@ -1,8 +1,8 @@
-package dhh.BusinessLogic;
+package dhh.businesslogic;
 
-import dhh.DataStorage.DishDAO;
-import dhh.Domain.Dish;
-import dhh.Domain.Order;
+import dhh.datastorage.DishDAO;
+import dhh.domain.Dish;
+import dhh.domain.Order;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
