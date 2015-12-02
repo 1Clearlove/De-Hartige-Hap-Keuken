@@ -10,8 +10,7 @@ import javax.swing.*;
 
 public class LoginFrame extends JFrame{
     
-    public void createPanel()
-    {
+    public void createPanel() {
         JFrame frame = new LoginFrame();
         frame.setSize(1366, 768);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

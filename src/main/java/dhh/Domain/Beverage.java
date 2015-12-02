@@ -8,19 +8,16 @@ public class Beverage {
     private ArrayList<String> ingredients;
     private double alcoholPercentage;
     
-    public Beverage(String name, double price, double alcoholPercentage)
-    {
+    public Beverage(String name, double price, double alcoholPercentage) {
         this.name = name;
         this.price = price;
     }
     
-    public double getPrice()
-    {
+    public double getPrice() {
         return price;
     }
     
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 }

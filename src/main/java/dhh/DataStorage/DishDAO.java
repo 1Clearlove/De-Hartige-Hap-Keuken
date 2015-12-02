@@ -3,8 +3,7 @@ package dhh.DataStorage;
 import java.sql.*;
 
 public class DishDAO {
-    public ResultSet getDishOrders()
-    {
+    public ResultSet getDishOrders() {
         ResultSet dishData = null;
         
         Database db = new Database();

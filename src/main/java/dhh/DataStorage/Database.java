@@ -16,8 +16,7 @@ public class Database {
     String password = "10ec4u";
     
     
-    public boolean openConnection()
-    {
+    public boolean openConnection() {
         try {
             con = DriverManager.getConnection(url, user, password);
             if(con != null)
@@ -32,8 +31,7 @@ public class Database {
         }
     }
     
-    public void closeConnection()
-    {
+    public void closeConnection() {
         try {
             con.close();
 
@@ -42,8 +40,7 @@ public class Database {
         }
     }
     
-    public ResultSet executeSelectionStatement(String query)
-    {
+    public ResultSet executeSelectionStatement(String query) {
         result = null;
         
         try {
@@ -57,8 +54,7 @@ public class Database {
         return result;
     }
     
-    public ResultSet executeInsertStatement(String query)
-    {
+    public ResultSet executeInsertStatement(String query) {
         result = null;
         
         try {
@@ -72,8 +68,7 @@ public class Database {
         return result;
     }
     
-    public int executeUpdateStatement(String query) //iemand moet hier nog ff naar kijken, hij kijkt nu hoeveel queries er geupdate zijn
-    {
+    public int executeUpdateStatement(String query) { //iemand moet hier nog ff naar kijken, hij kijkt nu hoeveel queries er geupdate zijn
         int result = 0;
         
         try {
@@ -87,8 +82,7 @@ public class Database {
         return result;
     }
     
-    public ResultSet executeDeleteStatement(String query)
-    {
+    public ResultSet executeDeleteStatement(String query) {
         result = null;
         
         try {

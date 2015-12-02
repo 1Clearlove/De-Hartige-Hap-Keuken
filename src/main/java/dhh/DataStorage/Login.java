@@ -4,8 +4,7 @@ package dhh.DataStorage;
 import java.sql.*;
 
 public class Login {
-    public ResultSet Login(String email)
-    {
+    public ResultSet Login(String email) {
         ResultSet cdLogin = null;
         
         Database db = new Database();

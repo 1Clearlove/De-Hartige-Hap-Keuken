@@ -67,8 +67,7 @@ public class HartigPanel extends javax.swing.JPanel {
         fillTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void fillTable() //TIMER INBOUWEN
-    {
+    private void fillTable() { //TIMER INBOUWEN
         beverageTableModel = new DefaultTableModel();
         jTable1.setModel(beverageTableModel);
         beverageTableModel.addColumn("Gerecht"); 

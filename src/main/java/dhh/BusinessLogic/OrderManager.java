@@ -8,8 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderManager {
-    public ArrayList generateDishOrderList()
-    {
+    public ArrayList generateDishOrderList() {
         ArrayList<Order> orderList = new ArrayList<>();
         
         DishDAO dishDAO = new DishDAO();

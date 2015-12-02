@@ -10,8 +10,7 @@ public class Order {
     
     private ArrayList<Dish> dishes;
     
-    public Order(int orderNumber, int tableNumber)
-    {
+    public Order(int orderNumber, int tableNumber) {
         this.orderNumber = orderNumber;
         this.tableNumber = tableNumber;
         dishes = new ArrayList<>();
@@ -22,8 +21,7 @@ public class Order {
         dishes.add(currentDish);
     }
     
-    public ArrayList<Dish> getDishes()
-    {
+    public ArrayList<Dish> getDishes() {
         return dishes;
     }
     
