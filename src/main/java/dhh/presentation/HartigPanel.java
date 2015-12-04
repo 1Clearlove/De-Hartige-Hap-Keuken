@@ -78,8 +78,8 @@ public class HartigPanel extends javax.swing.JPanel {
         beverageTableModel.addColumn("Handelingen"); 
         
         for(int i=1; i<4; i++){ //Loop through the columns with numbers to decrease their width
-            jTable1.getColumnModel().getColumn(i).setMinWidth(100);
-            jTable1.getColumnModel().getColumn(i).setMaxWidth(100);
+            jTable1.getColumnModel().getColumn(i).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(i).setMaxWidth(90);
         }
         
         OrderManager manager = new OrderManager();
