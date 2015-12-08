@@ -1,24 +1,21 @@
 package dhh.businesslogic;
 
-import dhh.datastorage.Login;
-import java.sql.*;
-import java.util.*;
+import dhh.datastorage.LoginDAO;
+import java.sql.ResultSet;
 
 public class LoginManager {
     
     public String checkLogin(String email){
         
         String cLogin = "";
-        Login login = new Login();
+        LoginDAO login = new LoginDAO();
         ResultSet queryLogin = login.Login(email);
         try{
             while(queryLogin.next()) { //Loop through all rows in the query result
                 cLogin = queryLogin.getString(1);
             }
-
-        }catch(Exception e){
-        
-        
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
         
         return cLogin;

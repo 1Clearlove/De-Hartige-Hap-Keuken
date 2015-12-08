@@ -4,7 +4,6 @@ import dhh.datastorage.DishDAO;
 import dhh.domain.Dish;
 import dhh.domain.Order;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderManager {
@@ -13,7 +12,6 @@ public class OrderManager {
         
         DishDAO dishDAO = new DishDAO();
         ResultSet queryResult = dishDAO.getDishOrders();
-        
         
         try {
             queryResult.first(); //Go to the first row in the query result
@@ -32,7 +30,7 @@ public class OrderManager {
             }
             orderList.add(currentOrder);
         }
-        catch (SQLException ex) {
+        catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
        

@@ -11,7 +11,7 @@ public class DishDAO {
         
         if(db.openConnection()){ 
             //dhh_orderstatus.statusName en dhh_itemcategory.categoryName wordt nu niet gebruikt
-            dishData = db.executeSelectionStatement("SELECT dhh_order.orderNo, dhh_table.tableNo, dhh_order.orderDatetime, dhh_item.itemName, dhh_orderitem.amount, dhh_orderitem.description, dhh_course.courseName, dhh_dish.preparation\n" +
+            dishData = db.executeSelectionStatement("SELECT dhh_order.orderNo, dhh_table.tableNo, dhh_order.orderDatetime, dhh_item.itemName, dhh_orderitem.amount, dhh_orderitem.description, dhh_course.courseName, dhh_dish.preparation " +
             "FROM dhh_order " +
             "JOIN dhh_table ON dhh_table.tableNo = dhh_order.TABLEtableNo " +
             "JOIN dhh_orderitem ON dhh_orderitem.ORDERorderNo = dhh_order.orderNo " +
@@ -25,4 +25,19 @@ public class DishDAO {
         }
         return dishData;
     }
+    
+    public ResultSet getDishes(){
+        ResultSet dishData = null;
+        
+        Database db = new Database();
+        db.openConnection();
+        
+        if(db.openConnection()){ 
+            dishData = db.executeSelectionStatement("SELECT dhh_dish.ITEMitemName, dhh_dish.Preparation " +
+            "FROM dhh_dish " +
+            "ORDER BY dhh_dish.ITEMitemName ASC");
+        }
+        return dishData;
+    }
+    
 }

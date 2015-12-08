@@ -3,7 +3,7 @@ package dhh.datastorage;
 
 import java.sql.*;
 
-public class Login {
+public class LoginDAO {
     public ResultSet Login(String email) {
         ResultSet cdLogin = null;
         

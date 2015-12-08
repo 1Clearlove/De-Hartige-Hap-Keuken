@@ -7,14 +7,14 @@ import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-public class HartigPanel extends javax.swing.JPanel {
+public class OrderPanel extends javax.swing.JPanel {
     /**
      * Creates new form HartigPanel
      */
     
-    private DefaultTableModel beverageTableModel;
+    private DefaultTableModel dishTableModel;
     
-    public HartigPanel() {
+    public OrderPanel() {
         initComponents();        
         fillTable();
         
@@ -68,14 +68,14 @@ public class HartigPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void fillTable() { //TIMER INBOUWEN
-        beverageTableModel = new DefaultTableModel();
-        jTable1.setModel(beverageTableModel);
-        beverageTableModel.addColumn("Gerecht"); 
-        beverageTableModel.addColumn("Hoeveelheid");
-        beverageTableModel.addColumn("Ordernummer"); 
-        beverageTableModel.addColumn("Tafelnummer"); 
-        beverageTableModel.addColumn("Opmerkingen"); 
-        beverageTableModel.addColumn("Handelingen"); 
+        dishTableModel = new DefaultTableModel();
+        jTable1.setModel(dishTableModel);
+        dishTableModel.addColumn("Gerecht"); 
+        dishTableModel.addColumn("Hoeveelheid");
+        dishTableModel.addColumn("Ordernummer"); 
+        dishTableModel.addColumn("Tafelnummer"); 
+        dishTableModel.addColumn("Opmerkingen"); 
+        dishTableModel.addColumn("Handelingen"); 
         
         for(int i=1; i<4; i++){ //Loop through the columns with numbers to decrease their width
             jTable1.getColumnModel().getColumn(i).setMinWidth(90);
@@ -87,7 +87,7 @@ public class HartigPanel extends javax.swing.JPanel {
         
         for (Order currentOrder : orderList) {
             for (Dish currentDish : currentOrder.getDishes()) {
-                beverageTableModel.addRow(new Object[]{currentDish.getName(), currentDish.getAmount(), currentOrder.getOrderNumber(), currentOrder.getTableNumber(), currentDish.getComment(), "Meer Info / Gereed"});
+                dishTableModel.addRow(new Object[]{currentDish.getName(), currentDish.getAmount(), currentOrder.getOrderNumber(), currentOrder.getTableNumber(), currentDish.getComment(), "Meer Info / Gereed"});
             }
         }
     }
