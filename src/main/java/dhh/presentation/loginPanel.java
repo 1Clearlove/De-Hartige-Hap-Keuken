@@ -6,7 +6,7 @@ import javax.swing.SwingUtilities;
 import dhh.businesslogic.LoginManager;
 import dhh.businesslogic.EmailValidator;
 
-public class LoginPanel extends javax.swing.JPanel {
+public class loginPanel extends javax.swing.JPanel {
 
     private String email;
     boolean valid;
@@ -14,7 +14,7 @@ public class LoginPanel extends javax.swing.JPanel {
     /**
      * Creates new form loginPanel
      */
-    public LoginPanel() {
+    public loginPanel() {
         initComponents();
     }
 
@@ -92,7 +92,7 @@ public class LoginPanel extends javax.swing.JPanel {
                 if(email.equals(Lmanager.checkLogin(email))){
                         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
                         frame.dispose();
-                        HartigFrame hframe = new HartigFrame();
+                        OrderFrame hframe = new OrderFrame();
                         hframe.createPanel();
                 }
 

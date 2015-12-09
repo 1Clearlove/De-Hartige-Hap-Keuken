@@ -40,4 +40,16 @@ public class DishDAO {
         return dishData;
     }
     
+    public void readyDish(){
+    
+        Database db = new Database();
+        db.openConnection();
+        if(db.openConnection()){
+            //readyDishorder = db.executeUpdateStatement(null);
+        
+        }
+        
+    
+    }
+    
 }

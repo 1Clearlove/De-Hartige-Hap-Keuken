@@ -10,7 +10,7 @@ public class LoginFrame extends JFrame{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 250);
         frame.setResizable(false);                  
-        JPanel panel = new LoginPanel();
+        JPanel panel = new loginPanel();
         frame.setContentPane(panel);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
