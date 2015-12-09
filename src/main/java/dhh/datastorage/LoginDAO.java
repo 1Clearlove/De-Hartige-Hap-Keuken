@@ -8,7 +8,6 @@ public class LoginDAO {
         ResultSet cdLogin = null;
         
         Database db = new Database();
-        db.openConnection();
         if(db.openConnection()){            
             cdLogin = db.executeSelectionStatement("SELECT dhh_employee.email " +
             "FROM dhh_employee " +
