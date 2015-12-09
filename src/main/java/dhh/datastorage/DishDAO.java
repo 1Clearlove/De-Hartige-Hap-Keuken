@@ -7,7 +7,6 @@ public class DishDAO {
         ResultSet dishData = null;
         
         Database db = new Database();
-        db.openConnection();
         
         if(db.openConnection()){ 
             //dhh_orderstatus.statusName en dhh_itemcategory.categoryName wordt nu niet gebruikt
@@ -30,13 +29,13 @@ public class DishDAO {
         ResultSet dishData = null;
         
         Database db = new Database();
-        db.openConnection();
         
         if(db.openConnection()){ 
             dishData = db.executeSelectionStatement("SELECT dhh_dish.ITEMitemName, dhh_dish.Preparation " +
             "FROM dhh_dish " +
             "ORDER BY dhh_dish.ITEMitemName ASC");
         }
+        
         return dishData;
     }
     
