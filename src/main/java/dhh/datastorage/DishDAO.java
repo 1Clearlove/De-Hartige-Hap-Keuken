@@ -3,6 +3,12 @@ package dhh.datastorage;
 import java.sql.*;
 
 public class DishDAO {
+    Database db;
+    
+    public DishDAO(){
+        db = new Database();
+    }
+    
     public ResultSet getDishOrders() {
         ResultSet dishData = null;
         
@@ -28,8 +34,6 @@ public class DishDAO {
     public ResultSet getDishes(){
         ResultSet dishData = null;
         
-        Database db = new Database();
-        
         if(db.openConnection()){ 
             dishData = db.executeSelectionStatement("SELECT dhh_dish.ITEMitemName, dhh_dish.Preparation " +
             "FROM dhh_dish " +
@@ -39,10 +43,31 @@ public class DishDAO {
         return dishData;
     }
     
-    public void readyDish(){
+    public ResultSet getCourses(){
+        ResultSet courseData = null;
+        
+        if(db.openConnection()){ 
+            courseData = db.executeSelectionStatement("SELECT dhh_course.courseName " +
+            "FROM dhh_course " +
+            "ORDER BY dhh_course.coursename DESC");
+        }
+        
+        return courseData;
+    }
     
-        Database db = new Database();
-        db.openConnection();
+    public ResultSet getCategories(){
+        ResultSet categoryData = null;
+        
+        if(db.openConnection()){ 
+            categoryData = db.executeSelectionStatement("SELECT dhh_itemcategory.categoryName " +
+            "FROM dhh_itemcategory " +
+            "ORDER BY dhh_itemcategory.categoryName DESC");
+        }
+        
+        return categoryData;
+    }
+    
+    public void readyDish(){
         if(db.openConnection()){
             //readyDishorder = db.executeUpdateStatement(null);
         
@@ -51,4 +76,35 @@ public class DishDAO {
     
     }
     
+    public boolean updateDish(String name, Time preparationTime, String course){
+        int result = 0;
+        
+        if(db.openConnection()){ 
+            /*result = db.executeUpdateStatement("UPDATE dhh_dish " +
+            "SET ITEMitemName='" + name + "', Preparation='" + preparationTime + "'" +
+            "WHERE ITEMitemName='" + name + "'");*/
+        }
+        
+        if(result > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean insertDish(String name, Time preparationTime, String course){
+        int result = 0;
+        
+        if(db.openConnection()){ 
+            /*result = db.executeInsertStatement("INSERT INTO dhh_dish (ITEMitemName, Preparation)" +
+            "VALUES ('" + name + "', '" + preparationTime + "')");*/
+            
+            System.out.println(result);
+        }
+        if(result > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

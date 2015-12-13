@@ -17,7 +17,7 @@ public class loginPanel extends javax.swing.JPanel {
     public loginPanel() {
         initComponents();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -32,6 +32,8 @@ public class loginPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("De Hartige Hap Keuken");
+
+        tbEmployeeCode.setText("jandehaan@gmail.com");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Medewerkerscode");
@@ -74,8 +76,12 @@ public class loginPanel extends javax.swing.JPanel {
                 .addContainerGap(342, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        logIn();
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    public void logIn(){
         email = tbEmployeeCode.getText();
         EmailValidator validator = new EmailValidator();
         valid = validator.validate(email);
@@ -86,7 +92,7 @@ public class loginPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "This email address does not belong to a master chef");
             }else{
                 if(email.equals(Lmanager.checkLogin(email))){
-                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    JFrame frame = (JFrame)SwingUtilities.getWindowAncestor(this);
                     frame.dispose();
                     OrderFrame hframe = new OrderFrame();
                     hframe.createPanel();
@@ -95,9 +101,9 @@ public class loginPanel extends javax.swing.JPanel {
             }
         } else {
             JOptionPane.showMessageDialog(this, "This is not a valid email address!");
-        }     
-    }//GEN-LAST:event_btnLoginActionPerformed
-
+        } 
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;

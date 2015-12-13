@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Database {
     Connection con = null;
@@ -15,6 +14,9 @@ public class Database {
     String user = "root";
     String password = "10ec4u";
     
+    public Database(){
+        result = null;
+    }
     
     public boolean openConnection() {
         try {
@@ -25,7 +27,7 @@ public class Database {
                 return false; 
         } 
         
-        catch (SQLException ex) {
+        catch (Exception ex) {
             System.out.println(ex.getMessage());
             return false;
         }
@@ -35,33 +37,31 @@ public class Database {
         try {
             con.close();
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
     
     public ResultSet executeSelectionStatement(String query) {
-        result = null;
-        
         try {
             currentStatement = con.prepareStatement(query);
             result = currentStatement.executeQuery();  
         }
-        catch (SQLException ex) {
+        catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         
         return result;
     }
     
-    public ResultSet executeInsertStatement(String query) {
-        result = null;
+    public int executeInsertStatement(String query) {
+        int result = 0;
         
         try {
             currentStatement = con.prepareStatement(query);
-            result = currentStatement.executeQuery();
+            result = currentStatement.executeUpdate();
         }
-        catch (SQLException ex) {
+        catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         
@@ -73,9 +73,9 @@ public class Database {
         
         try {
             currentStatement = con.prepareStatement(query);
-            result = currentStatement.executeUpdate();  
+            result = currentStatement.executeUpdate();
         }
-        catch (SQLException ex) {
+        catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         
@@ -83,13 +83,11 @@ public class Database {
     }
     
     public ResultSet executeDeleteStatement(String query) {
-        result = null;
-        
         try {
             currentStatement = con.prepareStatement(query);
             result = currentStatement.executeQuery();
         }
-        catch (SQLException ex) {
+        catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         

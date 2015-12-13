@@ -4,6 +4,7 @@ import java.sql.Time;
 
 public class manageDish {
     private String name;
+    private String course;
     private Time preparationTime;
     
     public manageDish (String name, Time preparationTime) {
@@ -17,5 +18,9 @@ public class manageDish {
     
     public Time getPreparationTime() {
         return preparationTime;
+    }
+    
+    public String getCourse() {
+        return course;
     }
 }

@@ -3,7 +3,6 @@ package dhh.presentation;
 import javax.swing.*;
 
 public class LoginFrame extends JFrame{
-    
     public void createPanel() {
         JFrame frame = new LoginFrame();
         frame.setTitle("De Hartige Hap Keuken - Login");
