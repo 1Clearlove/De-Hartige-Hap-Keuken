@@ -16,6 +16,8 @@ public class loginPanel extends javax.swing.JPanel {
      */
     public loginPanel() {
         initComponents();
+        JFrame frame = getParentFrame();
+        if (frame!=null) frame.getRootPane().setDefaultButton(btnLogin);
     }
     
     @SuppressWarnings("unchecked")
@@ -76,12 +78,12 @@ public class loginPanel extends javax.swing.JPanel {
                 .addContainerGap(342, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+      
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        logIn();
+        LogIn();
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    public void logIn(){
+                                    
+    public void LogIn(){
         email = tbEmployeeCode.getText();
         EmailValidator validator = new EmailValidator();
         valid = validator.validate(email);
@@ -92,7 +94,10 @@ public class loginPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "This email address does not belong to a master chef");
             }else{
                 if(email.equals(Lmanager.checkLogin(email))){
-                    JFrame frame = (JFrame)SwingUtilities.getWindowAncestor(this);
+
+                    JFrame frame = getParentFrame();
+                    
+
                     frame.dispose();
                     OrderFrame hframe = new OrderFrame();
                     hframe.createPanel();
@@ -101,7 +106,17 @@ public class loginPanel extends javax.swing.JPanel {
             }
         } else {
             JOptionPane.showMessageDialog(this, "This is not a valid email address!");
-        } 
+        }        
+    }
+    
+    private JFrame getParentFrame()
+    {
+        return (JFrame) SwingUtilities.getWindowAncestor(this);
+    }
+    
+    public javax.swing.JButton getDefaultButton()
+    {
+        return btnLogin;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
