@@ -10,11 +10,11 @@ public class ManageManager {
         ArrayList<manageDish> dishList = new ArrayList<>();
         
         DishDAO dishDAO = new DishDAO();
-        ResultSet queryResult = dishDAO.getDishes();
+        ResultSet dishData = dishDAO.getDishes();
         
         try {
-            while(queryResult.next()) { //Loop through all rows in the query result
-                dishList.add(new manageDish(queryResult.getString(1), queryResult.getTime(2)));
+            while(dishData.next()) { //Loop through all rows in the query result
+                dishList.add(new manageDish(dishData.getString(1), dishData.getDouble(2), dishData.getString(3), dishData.getString(4), dishData.getString(5), dishData.getTime(6)));
             }
         }        
         
@@ -63,14 +63,30 @@ public class ManageManager {
         return categoryList;
     }
     
-    
-    public boolean updateDish(manageDish currentDish){
+    public manageDish getManageDishFromName(String dishName) {
         DishDAO dishDAO = new DishDAO();
-        return dishDAO.updateDish(currentDish.getName(), currentDish.getPreparationTime(), currentDish.getCourse());
+        ResultSet dishData = dishDAO.getManageDishFromName(dishName);
+        
+        manageDish currentDish = null;
+        
+        try {
+            dishData.first();
+            currentDish = new manageDish(dishData.getString(1), dishData.getDouble(2), dishData.getString(3), dishData.getString(4), dishData.getString(5), dishData.getTime(6));
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return currentDish;
+    }
+    
+    public boolean updateDish(String oldDishName, manageDish currentDish){
+        DishDAO dishDAO = new DishDAO();
+        return dishDAO.updateDish(oldDishName, currentDish);
     }
     
     public boolean insertDish(manageDish currentDish){
         DishDAO dishDAO = new DishDAO();
-        return dishDAO.insertDish(currentDish.getName(), currentDish.getPreparationTime(), currentDish.getCourse());
+        return dishDAO.insertDish(currentDish);
     }
 }

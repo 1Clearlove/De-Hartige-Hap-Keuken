@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class ManageDishFrame extends JFrame {
     public ManageDishFrame(){
         JFrame frame = new OrderFrame();
-        frame.setSize(400, 400);
+        frame.setSize(400, 425);
         frame.setTitle("De Hartige Hap Nieuw Gerecht");
         JPanel panel = new ManageDishPanel();
         frame.setContentPane(panel);
@@ -17,7 +17,7 @@ public class ManageDishFrame extends JFrame {
     
     public ManageDishFrame(manageDish currentDish){
         JFrame frame = new OrderFrame();
-        frame.setSize(400, 400);
+        frame.setSize(400, 425);
         frame.setTitle("De Hartige Hap Beheer " + currentDish.getName());
         JPanel panel = new ManageDishPanel(currentDish);
         frame.setContentPane(panel);

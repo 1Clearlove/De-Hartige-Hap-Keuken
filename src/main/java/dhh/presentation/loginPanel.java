@@ -5,6 +5,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import dhh.businesslogic.LoginManager;
 import dhh.businesslogic.EmailValidator;
+import dhh.datastorage.DishDAO;
+import java.sql.ResultSet;
 
 public class loginPanel extends javax.swing.JPanel {
 

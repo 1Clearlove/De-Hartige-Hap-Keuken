@@ -4,21 +4,24 @@ import dhh.businesslogic.ManageManager;
 import dhh.domain.manageDish;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class ManageDishPanel extends javax.swing.JPanel {
-
-    /**
-     * Creates new form ManageDishPanel
-     */
-    
     manageDish currentDish;
+    ManageManager manager;
     
     public ManageDishPanel() {
         initComponents();
         
-        ManageManager manager = new ManageManager();
+        manager = new ManageManager();
+        
         ArrayList<String> courseList = manager.getCourses();
         ArrayList<String> categoryList = manager.getCategories();
         
@@ -33,22 +36,32 @@ public class ManageDishPanel extends javax.swing.JPanel {
     
     public ManageDishPanel(manageDish currentDish) {
         initComponents();
-        
         this.currentDish = currentDish;
+        
+        manager = new ManageManager();
         
         txtDishName.setText(currentDish.getName());
         txtPreparationTime.setText(currentDish.getPreparationTime().toString());
+        txtDescription.setText(currentDish.getDescription());
         
-        ManageManager manager = new ManageManager();
+        DecimalFormat df = new DecimalFormat("0.00", new DecimalFormatSymbols(Locale.US));
+        txtPrice.setText(String.valueOf(df.format(currentDish.getPrice())));
+        
         ArrayList<String> courseList = manager.getCourses();
         ArrayList<String> categoryList = manager.getCategories();
         
-        for (String currentCourse : courseList) {
-            cmbCourse.addItem(currentCourse);
+        for(int i = 0; i < courseList.size(); i++) {
+            cmbCourse.addItem(courseList.get(i));
+            if(cmbCourse.getItemAt(i).toString().equals(currentDish.getCourse())){
+                cmbCourse.setSelectedIndex(i);
+            }
         }
         
-        for (String currentCategory : categoryList) {
-            cmbCategory.addItem(currentCategory);
+        for(int i = 0; i < categoryList.size(); i++) {
+            cmbCategory.addItem(categoryList.get(i));
+            if(cmbCategory.getItemAt(i).toString().equals(currentDish.getCategory())){
+                cmbCategory.setSelectedIndex(i);
+            }
         }
     }
     @SuppressWarnings("unchecked")
@@ -71,8 +84,11 @@ public class ManageDishPanel extends javax.swing.JPanel {
         cmbCategory = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtDescription = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtDescription = new javax.swing.JTextPane();
+        jLabel7 = new javax.swing.JLabel();
+        txtPrice = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,6 +107,7 @@ public class ManageDishPanel extends javax.swing.JPanel {
 
         txtDishName.setToolTipText("");
 
+        txtPreparationTime.setText("00:00:00");
         txtPreparationTime.setToolTipText("");
 
         jLabel2.setText("Bereidingstijd");
@@ -129,7 +146,14 @@ public class ManageDishPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Beschrijving");
 
-        txtDescription.setViewportView(jTextPane1);
+        jScrollPane3.setViewportView(txtDescription);
+
+        jLabel7.setText("Prijs");
+
+        txtPrice.setText("0.00");
+
+        jLabel8.setText("€");
+        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -148,18 +172,28 @@ public class ManageDishPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(cmbCourse, 0, 147, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPreparationTime, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtPreparationTime, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel8))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(10, 10, 10))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                     .addComponent(btnSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAddIngredient))
-                    .addComponent(txtDescription))
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -174,7 +208,13 @@ public class ManageDishPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPreparationTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPreparationTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -186,39 +226,49 @@ public class ManageDishPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(btnAddIngredient))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(btnSave)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        ManageManager manager = new ManageManager();
         Time timeValue = null;
+        double priceValue = 0.00;
+        JFrame parentFrame = (JFrame)javax.swing.SwingUtilities.getWindowAncestor(this);
         
         try {
             DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
             timeValue = new java.sql.Time(formatter.parse(txtPreparationTime.getText()).getTime());
+            
+            priceValue = Double.parseDouble(txtPrice.getText());
         }
         catch (Exception exc){
             System.out.println(exc);
         }
         
         if(currentDish == null){
-            manager.insertDish(new manageDish(txtDishName.getText(), timeValue));
+            if(manager.insertDish(new manageDish(txtDishName.getText(), priceValue, txtDescription.getText(), cmbCourse.getSelectedItem().toString(), cmbCategory.getSelectedItem().toString(), timeValue))) {
+                JOptionPane.showMessageDialog(null, "Het gerecht is succesvol toegevoegd.", txtDishName.getText() + " is toegevoegd.", JOptionPane.INFORMATION_MESSAGE);
+                parentFrame.dispose();
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Het gerecht kon niet worden toegevoegd.", "Het gerecht is niet toegevoegd, neem contact op met uw leidinggevende.", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            manager.updateDish(new manageDish(txtDishName.getText(), timeValue)); 
+            if(manager.updateDish(currentDish.getName(), new manageDish(txtDishName.getText(), priceValue, txtDescription.getText(), cmbCourse.getSelectedItem().toString(), cmbCategory.getSelectedItem().toString(), timeValue))) {
+                JOptionPane.showMessageDialog(null, "Het gerecht is succesvol aangepast.", txtDishName.getText() + " is aangepast.", JOptionPane.INFORMATION_MESSAGE);
+                parentFrame.dispose();
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Het gerecht kon niet worden aangepast.", "Het gerecht is niet aangepast, neem contact op met uw leidinggevende.", JOptionPane.INFORMATION_MESSAGE);
         }
-            
-
-
     }//GEN-LAST:event_btnSaveActionPerformed
 
 
@@ -233,13 +283,16 @@ public class ManageDishPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTable tblIngredients;
-    private javax.swing.JScrollPane txtDescription;
+    private javax.swing.JTextPane txtDescription;
     private javax.swing.JTextField txtDishName;
     private javax.swing.JTextField txtPreparationTime;
+    private javax.swing.JTextField txtPrice;
     // End of variables declaration//GEN-END:variables
 }

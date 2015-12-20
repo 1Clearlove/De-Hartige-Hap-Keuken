@@ -1,5 +1,6 @@
 package dhh.datastorage;
 
+import dhh.domain.manageDish;
 import java.sql.*;
 
 public class DishDAO {
@@ -35,9 +36,12 @@ public class DishDAO {
         ResultSet dishData = null;
         
         if(db.openConnection()){ 
-            dishData = db.executeSelectionStatement("SELECT dhh_dish.ITEMitemName, dhh_dish.Preparation " +
-            "FROM dhh_dish " +
-            "ORDER BY dhh_dish.ITEMitemName ASC");
+            dishData = db.executeSelectionStatement("SELECT i.itemName, i.price, i.description, c.courseName, ic.categoryName, d.preparation " +
+            "FROM dhh_item i " +
+            "JOIN dhh_course c ON c.courseName = i.COURSEcourseName " +
+            "JOIN dhh_itemcategory ic ON ic.categoryName = i.ITEMCATEGORYcategoryName " +
+            "JOIN dhh_dish d ON i.itemName = d.ITEMitemName " +
+            "ORDER BY i.itemName ASC");
         }
         
         return dishData;
@@ -76,32 +80,53 @@ public class DishDAO {
     
     }
     
-    public boolean updateDish(String name, Time preparationTime, String course){
+    public ResultSet getManageDishFromName(String dishName) {
+        ResultSet result = null;
+        
+        if(db.openConnection()){ 
+            result = db.executeSelectionStatement("SELECT i.itemName, i.price, i.description, c.courseName, ic.categoryName, d.preparation " +
+            "FROM dhh_item i " +
+            "JOIN dhh_course c ON c.courseName = i.COURSEcourseName " +
+            "JOIN dhh_itemcategory ic ON ic.categoryName = i.ITEMCATEGORYcategoryName " +
+            "JOIN dhh_dish d ON i.itemName = d.ITEMitemName " +
+            "WHERE itemName = '" + dishName + "'");
+        }
+        
+        return result;
+    }
+    
+    public boolean updateDish(String oldDishName, manageDish currentDish){
         int result = 0;
         
         if(db.openConnection()){ 
-            /*result = db.executeUpdateStatement("UPDATE dhh_dish " +
-            "SET ITEMitemName='" + name + "', Preparation='" + preparationTime + "'" +
-            "WHERE ITEMitemName='" + name + "'");*/
+            result += db.executeUpdateStatement("UPDATE dhh_item " +
+            "SET itemName='" + currentDish.getName() + "', price='" + currentDish.getPrice() + "', description='" + currentDish.getDescription() + "', COURSEcourseName='" + currentDish.getCourse() + "', ITEMCATEGORYcategoryName='" + currentDish.getCategory() + "'" + 
+            "WHERE itemName='" + oldDishName + "'");
+            
+            result += db.executeUpdateStatement("UPDATE dhh_dish " +
+            "SET ITEMitemName='" + currentDish.getName() + "', preparation='" + currentDish.getPreparationTime() + "'" +
+            "WHERE ITEMitemName='" + oldDishName + "'");
         }
-        
-        if(result > 0){
+        if(result == 2){
             return true;
         } else {
             return false;
         }
     }
     
-    public boolean insertDish(String name, Time preparationTime, String course){
+    public boolean insertDish(manageDish currentDish){
         int result = 0;
         
         if(db.openConnection()){ 
-            /*result = db.executeInsertStatement("INSERT INTO dhh_dish (ITEMitemName, Preparation)" +
-            "VALUES ('" + name + "', '" + preparationTime + "')");*/
-            
-            System.out.println(result);
+            result += db.executeInsertStatement("INSERT INTO dhh_item " +
+            "(itemName, price, description, COURSEcourseName, ITEMCATEGORYcategoryName)" +
+            "VALUES ('" + currentDish.getName() + "', '" + currentDish.getPrice() + "', '" + currentDish.getDescription() + "', '" + currentDish.getCourse() + "', '" + currentDish.getCategory() + "')");
+        
+            result += db.executeInsertStatement("INSERT INTO dhh_dish " +
+            "(ITEMitemName, preparation)" +
+            "VALUES ('" + currentDish.getName() + "', '" + currentDish.getPreparationTime() + "')");
         }
-        if(result > 0){
+        if(result == 2){
             return true;
         } else {
             return false;

@@ -3,19 +3,19 @@ package dhh.presentation;
 import dhh.businesslogic.ManageManager;
 import dhh.domain.manageDish;
 import java.awt.Font;
-import java.sql.Time;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class ManageDishesPanel extends javax.swing.JPanel {
-    /**
-     * Creates new form HartigPanel
-     */
-    
     private DefaultTableModel ordersTableModel;
+    private ManageManager manager;
+    
     
     public ManageDishesPanel() {
-        initComponents();        
+        initComponents(); 
+        
+        manager = new ManageManager();
+        
         fillTable();
         
         tblDishes.setFont(new Font(tblDishes.getFont().getFontName(), Font.PLAIN, 20));
@@ -79,10 +79,10 @@ public class ManageDishesPanel extends javax.swing.JPanel {
     private void tblDishesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDishesMouseClicked
         int selectedRowIndex = tblDishes.getSelectedRow();
         String dishName = (String)tblDishes.getModel().getValueAt(selectedRowIndex, 0);
-        Time dishPreparationTime = (Time)tblDishes.getModel().getValueAt(selectedRowIndex, 1);
-        String dishCourse = (String)tblDishes.getModel().getValueAt(selectedRowIndex, 2);
-
-        ManageDishFrame editDishFrame = new ManageDishFrame(new manageDish(dishName, dishPreparationTime));
+        
+        manageDish currentDish = manager.getManageDishFromName(dishName);
+        
+        ManageDishFrame editDishFrame = new ManageDishFrame(currentDish);
     }//GEN-LAST:event_tblDishesMouseClicked
 
     private void fillTable() {
@@ -96,11 +96,10 @@ public class ManageDishesPanel extends javax.swing.JPanel {
         tblDishes.getColumnModel().getColumn(1).setMinWidth(100);
         tblDishes.getColumnModel().getColumn(1).setMaxWidth(100);
         
-        ManageManager manager = new ManageManager();
         ArrayList<manageDish> dishList = manager.getDishes();
         
         for (manageDish currentDish : dishList) {
-            ordersTableModel.addRow(new Object[]{currentDish.getName(), currentDish.getPreparationTime()});
+            ordersTableModel.addRow(new Object[]{currentDish.getName(), currentDish.getPreparationTime(), currentDish.getCourse()});
         }
     }
     
