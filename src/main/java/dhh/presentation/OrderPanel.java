@@ -6,6 +6,13 @@ import dhh.domain.Order;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import dhh.businesslogic.ButtonColumn;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 public class OrderPanel extends javax.swing.JPanel {
     /**
@@ -93,19 +100,31 @@ public class OrderPanel extends javax.swing.JPanel {
         dishTableModel.addColumn("Ordernummer"); 
         dishTableModel.addColumn("Tafelnummer"); 
         dishTableModel.addColumn("Opmerkingen"); 
-        dishTableModel.addColumn("Handelingen"); 
-        
+        dishTableModel.addColumn("Gereed melden"); 
+        OrderManager manager = new OrderManager();
+
         for(int i=1; i<4; i++){ //Loop through the columns with numbers to decrease their width
             jTable1.getColumnModel().getColumn(i).setMinWidth(90);
             jTable1.getColumnModel().getColumn(i).setMaxWidth(90);
         }
         
-        OrderManager manager = new OrderManager();
+        Action readyDish = new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                //manager.readyDish(dish);
+                JOptionPane.showMessageDialog(jButton1, "Gerecht is gereed gemeld!");
+            }
+        };
+        
+        ButtonColumn buttonColumn = new ButtonColumn((jTable1), readyDish, 5);
+        buttonColumn.setMnemonic(KeyEvent.VK_D);
+        
         ArrayList<Order> orderList = manager.generateDishOrderList();
         
         for (Order currentOrder : orderList) {
             for (Dish currentDish : currentOrder.getDishes()) {
-                dishTableModel.addRow(new Object[]{currentDish.getName(), currentDish.getAmount(), currentOrder.getOrderNumber(), currentOrder.getTableNumber(), currentDish.getComment(), "Meer Info / Gereed"});
+                dishTableModel.addRow(new Object[]{currentDish.getName(), currentDish.getAmount(), currentOrder.getOrderNumber(), currentOrder.getTableNumber(), currentDish.getComment(), "Gereed melden"});
             }
         }
     }

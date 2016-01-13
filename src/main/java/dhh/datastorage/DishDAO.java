@@ -1,5 +1,6 @@
 package dhh.datastorage;
 
+import dhh.domain.Dish;
 import dhh.domain.manageDish;
 import java.sql.*;
 
@@ -71,7 +72,7 @@ public class DishDAO {
         return categoryData;
     }
     
-    public void readyDish(){
+    public void readyDish(Dish dish){
         if(db.openConnection()){
             //readyDishorder = db.executeUpdateStatement(null);
         

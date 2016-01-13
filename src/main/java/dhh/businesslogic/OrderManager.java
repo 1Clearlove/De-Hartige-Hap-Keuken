@@ -36,4 +36,10 @@ public class OrderManager {
        
         return orderList;
     }
+    
+    public void readyDish(Dish dish)
+    {
+        DishDAO dishDAO = new DishDAO();
+        dishDAO.readyDish(dish);
+    }
 }
