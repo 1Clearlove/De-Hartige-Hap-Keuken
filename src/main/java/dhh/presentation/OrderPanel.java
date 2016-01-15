@@ -95,18 +95,29 @@ public class OrderPanel extends javax.swing.JPanel {
     private void fillTable() { //TIMER INBOUWEN
         dishTableModel = new DefaultTableModel();
         jTable1.setModel(dishTableModel);
-        dishTableModel.addColumn("Gerecht"); 
-        dishTableModel.addColumn("Hoeveelheid");
-        dishTableModel.addColumn("Ordernummer"); 
-        dishTableModel.addColumn("Tafelnummer"); 
-        dishTableModel.addColumn("Opmerkingen"); 
+        dishTableModel.addColumn("Tafelnummer");
+        dishTableModel.addColumn("Aantal");
+        dishTableModel.addColumn("Gerecht");
+        dishTableModel.addColumn("Besteld"); 
+        dishTableModel.addColumn("Opmerkingen");                              
         dishTableModel.addColumn("Gereed melden"); 
         OrderManager manager = new OrderManager();
+        
 
-        for(int i=1; i<4; i++){ //Loop through the columns with numbers to decrease their width
-            jTable1.getColumnModel().getColumn(i).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(i).setMaxWidth(90);
-        }
+        jTable1.getColumnModel().getColumn(0).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(100);
+        
+        jTable1.getColumnModel().getColumn(1).setMinWidth(60);
+        jTable1.getColumnModel().getColumn(1).setMaxWidth(60);
+        
+        jTable1.getColumnModel().getColumn(2).setMinWidth(200);
+        
+        jTable1.getColumnModel().getColumn(3).setMinWidth(60);
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(60);      
+        
+        jTable1.getColumnModel().getColumn(4).setMinWidth(200);
+        
+        jTable1.getColumnModel().getColumn(5).setMinWidth(200);
         
         Action readyDish = new AbstractAction()
         {
@@ -124,7 +135,7 @@ public class OrderPanel extends javax.swing.JPanel {
         
         for (Order currentOrder : orderList) {
             for (Dish currentDish : currentOrder.getDishes()) {
-                dishTableModel.addRow(new Object[]{currentDish.getName(), currentDish.getAmount(), currentOrder.getOrderNumber(), currentOrder.getTableNumber(), currentDish.getComment(), "Gereed melden"});
+                dishTableModel.addRow(new Object[]{currentOrder.getTableNumber(), currentDish.getAmount(), currentDish.getName(), currentDish.getOrderTime(), currentDish.getComment(), "Gereed melden"});
             }
         }
     }
