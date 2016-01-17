@@ -17,18 +17,17 @@ public class DishDAO {
         Database db = new Database();
         
         if(db.openConnection()){ 
-            //dhh_orderstatus.statusName en dhh_itemcategory.categoryName wordt nu niet gebruikt
-            dishData = db.executeSelectionStatement("SELECT dhh_order.orderNo, dhh_table.tableNo, dhh_order.orderDatetime, dhh_item.itemName, dhh_orderitem.amount, dhh_orderitem.description, dhh_course.courseName, dhh_dish.preparation " +
-            "FROM dhh_order " +
-            "JOIN dhh_table ON dhh_table.tableNo = dhh_order.TABLEtableNo " +
-            "JOIN dhh_orderitem ON dhh_orderitem.ORDERorderNo = dhh_order.orderNo " +
-            "JOIN dhh_orderstatus ON dhh_orderstatus.statusName = dhh_orderitem.ORDERSTATUSstatusName " +
-            "JOIN dhh_item ON dhh_item.itemName = dhh_orderitem.ITEMitemName " +
+            dishData = db.executeSelectionStatement("SELECT dhh_table.tableNo, dhh_item.itemName, dhh_orderline.amount, dhh_orderline.description, dhh_orderline.orderLineDateTime, dhh_receipt.receiptNo, dhh_orderline.orderLineNo, dhh_course.courseName, dhh_dish.preparation " +
+            "FROM dhh_receipt " +
+            "JOIN dhh_table ON dhh_table.tableNo = dhh_receipt.TABLEtableNo " +
+            "JOIN dhh_orderline ON dhh_orderline.RECEIPTreceiptNo = dhh_receipt.receiptNo " +
+            "JOIN dhh_orderstatus ON dhh_orderstatus.statusName = dhh_orderline.ORDERSTATUSstatusName " +
+            "JOIN dhh_item ON dhh_item.itemName = dhh_orderline.ITEMitemName " +
             "JOIN dhh_course ON dhh_course.courseName = dhh_item.COURSEcourseName " +
             "JOIN dhh_itemcategory ON dhh_itemcategory.categoryName = dhh_item.ITEMCATEGORYcategoryName " +
             "JOIN dhh_dish ON dhh_dish.ITEMitemName = dhh_item.itemName " +
-            "WHERE dhh_orderstatus.statusName = UPPER('In behandeling') " +
-            "ORDER BY dhh_order.orderNo ASC");
+            "WHERE dhh_orderstatus.statusName = UPPER('Besteld') OR dhh_orderstatus.statusName = UPPER('In behandeling')" +
+            "ORDER BY dhh_receipt.receiptNo ASC");
         }
         return dishData;
     }
@@ -75,10 +74,10 @@ public class DishDAO {
     public void readyDish(Dish dish){
         if(db.openConnection()){
             //readyDishorder = db.executeUpdateStatement(null);
-        
-        }
-        
-    
+            //"UPDATE dhh_orderline " +
+            //"SET ORDERSTATUSstatusName = "'Klaar'" + " + 
+            //"WHERE orderLineNo = "
+        }     
     }
     
     public ResultSet getManageDishFromName(String dishName) {
