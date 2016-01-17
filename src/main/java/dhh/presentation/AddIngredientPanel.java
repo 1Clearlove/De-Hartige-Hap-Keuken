@@ -107,7 +107,11 @@ public class AddIngredientPanel extends javax.swing.JPanel {
     private void btnAddIngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddIngredientActionPerformed
         try {
             Double.parseDouble(txtAmount.getText());
-            manager.addIngredientToDish(currentDish.getName(), cmbIngredients.getSelectedItem().toString(), Double.parseDouble(txtAmount.getText()));
+            if(manager.addIngredientToDish(currentDish.getName(), cmbIngredients.getSelectedItem().toString(), Double.parseDouble(txtAmount.getText()))) {
+                JOptionPane.showMessageDialog(null, "Het ingrediënt is succesvol toegevoegd.", "" + currentDish.getName() + " is toegevoegd.", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Er is iets fout gegaan, neem contact op met uw leidinggegevende.", "Er is iets fout gegaan.", JOptionPane.INFORMATION_MESSAGE);
+            }   
        }
        catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, "De ingevoerde hoeveelheid is niet correct ingevoerd.", "Controleer uw invoer.", JOptionPane.INFORMATION_MESSAGE);
