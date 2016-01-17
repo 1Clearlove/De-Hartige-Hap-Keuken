@@ -1,6 +1,7 @@
 package dhh.businesslogic;
 
 import dhh.datastorage.DishDAO;
+import dhh.datastorage.IngredientDAO;
 import dhh.domain.Ingredient;
 import dhh.domain.manageDish;
 import java.sql.ResultSet;
@@ -98,6 +99,35 @@ public class ManageManager {
         }
         
         return ingredientsList;
+    }
+    
+    public ArrayList getAllIngredients() {
+        ArrayList<String> ingredientsList = new ArrayList<>();
+        
+        IngredientDAO ingredientDAO = new IngredientDAO();
+        ResultSet queryResult = ingredientDAO.getAllIngredients();
+        
+        try {
+            while(queryResult.next()) {
+                ingredientsList.add(queryResult.getString(1));
+            }
+        }
+        
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return ingredientsList;
+    }
+    
+    public void deleteIngredientFromDish(String dishName, String ingredientName) { 
+        DishDAO dishDAO = new DishDAO();  
+        dishDAO.deleteIngredientFromDish(dishName, ingredientName);
+    }
+    
+    public boolean addIngredientToDish(String dishName, String ingredientName, double amount) {
+        DishDAO dishDAO = new DishDAO();
+        return dishDAO.addIngredientToDish(dishName, ingredientName, amount);
     }
     
     public boolean updateDish(String oldDishName, manageDish currentDish){

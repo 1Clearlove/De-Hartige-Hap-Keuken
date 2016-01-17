@@ -108,6 +108,23 @@ public class DishDAO {
         return result;
     }
     
+    public void deleteIngredientFromDish(String dishName, String ingredientName) {                
+        if(db.openConnection()) {
+            db.executeDeleteStatement("DELETE FROM dhh_itemingredient WHERE ITEMitemName='" + dishName + "' AND INGREDIENTingredientName='" + ingredientName + "'");
+        }
+    }
+    
+    public boolean addIngredientToDish(String dishName, String ingredientName, double amount) {
+        int result = 0;
+        
+        if(db.openConnection()) {
+              result += db.executeInsertStatement("INSERT INTO dhh_itemingredient " +
+                "(ITEMitemName, INGREDIENTingredientName, amount)" +
+                "VALUES ('" + dishName + "', '" + ingredientName + "', '" + amount + "')");
+        }       
+        return result == 1;
+    }
+    
     public boolean updateDish(String oldDishName, manageDish currentDish){
         int result = 0;
         

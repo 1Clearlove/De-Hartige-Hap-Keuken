@@ -106,7 +106,6 @@ public class ManageDishPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblIngredients = new javax.swing.JTable();
-        btnAddIngredient = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         cmbCategory = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
@@ -116,6 +115,8 @@ public class ManageDishPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtPrice = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        btnAddIngredient = new javax.swing.JButton();
+        btnDeleteIngredient = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -158,8 +159,6 @@ public class ManageDishPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tblIngredients);
 
-        btnAddIngredient.setText("Wijzig ingrediënten");
-
         btnSave.setText("Bewerk");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,6 +180,20 @@ public class ManageDishPanel extends javax.swing.JPanel {
 
         jLabel8.setText("€");
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        btnAddIngredient.setText("Toevoegen");
+        btnAddIngredient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddIngredientActionPerformed(evt);
+            }
+        });
+
+        btnDeleteIngredient.setText("Verwijderen");
+        btnDeleteIngredient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteIngredientActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -219,7 +232,9 @@ public class ManageDishPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddIngredient))
+                        .addComponent(btnAddIngredient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeleteIngredient))
                     .addComponent(jScrollPane3))
                 .addContainerGap())
         );
@@ -257,7 +272,8 @@ public class ManageDishPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(btnAddIngredient))
+                    .addComponent(btnAddIngredient)
+                    .addComponent(btnDeleteIngredient))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -298,9 +314,28 @@ public class ManageDishPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void btnAddIngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddIngredientActionPerformed
+        AddIngredientFrame addIngredientFrame = new AddIngredientFrame();
+        addIngredientFrame.createPanel(currentDish);
+    }//GEN-LAST:event_btnAddIngredientActionPerformed
+
+    private void btnDeleteIngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteIngredientActionPerformed
+        int[] ingredientIds = tblIngredients.getSelectedRows();
+        
+        if(ingredientIds.length == 0) {
+            JOptionPane.showMessageDialog(null, "Er zijn geen ingrediënten geselecteerd.", "De ingrediënten zijn niet verwijdered.", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            for(int i : ingredientIds) {
+                manager.deleteIngredientFromDish(currentDish.getName(), tblIngredients.getValueAt(i, i).toString());              
+            }
+            JOptionPane.showMessageDialog(null, "Ingrediënten zijn succesvol verwijderd.", "De ingrediënten zijn verwijdered.", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDeleteIngredientActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddIngredient;
+    private javax.swing.JButton btnDeleteIngredient;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cmbCategory;
     private javax.swing.JComboBox cmbCourse;
