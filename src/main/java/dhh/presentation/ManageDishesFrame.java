@@ -7,7 +7,7 @@ public class ManageDishesFrame extends JFrame {
     public void createPanel(){
         JFrame frame = new OrderFrame();
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        frame.setTitle("De Hartige Hap Beheer gerechten");
+        frame.setTitle("De Hartige Hap Keuken - Beheer gerechten");
         JPanel panel = new ManageDishesPanel();
         frame.setContentPane(panel);
         frame.setLocationRelativeTo(null);

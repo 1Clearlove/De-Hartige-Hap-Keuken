@@ -10,13 +10,12 @@ public class ManageDishesPanel extends javax.swing.JPanel {
     private DefaultTableModel ordersTableModel;
     private ManageManager manager;
     
-    
     public ManageDishesPanel() {
         initComponents(); 
         
         manager = new ManageManager();
         
-        fillTable();
+        refreshTable();
         
         tblDishes.setFont(new Font(tblDishes.getFont().getFontName(), Font.PLAIN, 20));
         tblDishes.setRowHeight(tblDishes.getRowHeight()+tblDishes.getFont().getSize()); //Set the row height for each row to fit the current font size
@@ -85,7 +84,7 @@ public class ManageDishesPanel extends javax.swing.JPanel {
         ManageDishFrame editDishFrame = new ManageDishFrame(currentDish);
     }//GEN-LAST:event_tblDishesMouseClicked
 
-    private void fillTable() {
+    private void refreshTable() {
         ordersTableModel = new DefaultTableModel();
         tblDishes.setModel(ordersTableModel);
         ordersTableModel.addColumn("Gerechtnaam"); 

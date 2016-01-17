@@ -15,11 +15,13 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ManageDishPanel extends javax.swing.JPanel {
-    manageDish currentDish;
-    ManageManager manager;
+    private manageDish currentDish;
+    private ManageManager manager;    
     
     public ManageDishPanel() {
         initComponents();
+        
+        btnSave.setText("Voeg toe");
         
         manager = new ManageManager();
         
@@ -39,10 +41,11 @@ public class ManageDishPanel extends javax.swing.JPanel {
         initComponents();
         this.currentDish = currentDish;
         
+        btnSave.setText("Bewerk " + currentDish.getName().toLowerCase());
+        
         manager = new ManageManager();
         
         txtDishName.setText(currentDish.getName());
-        txtPreparationTime.setText(currentDish.getPreparationTime().toString());
         txtDescription.setText(currentDish.getDescription());
         
         DecimalFormat df = new DecimalFormat("0.00", new DecimalFormatSymbols(Locale.US));
@@ -50,6 +53,11 @@ public class ManageDishPanel extends javax.swing.JPanel {
         
         ArrayList<String> courseList = manager.getCourses();
         ArrayList<String> categoryList = manager.getCategories();
+        
+        if(currentDish.getPreparationTime() == null)
+                txtPreparationTime.setText("00:00:00");
+        else
+            txtPreparationTime.setText(currentDish.getPreparationTime().toString());
         
         for(int i = 0; i < courseList.size(); i++) {
             cmbCourse.addItem(courseList.get(i));
@@ -64,7 +72,6 @@ public class ManageDishPanel extends javax.swing.JPanel {
                 cmbCategory.setSelectedIndex(i);
             }
         }
-        
         
         DefaultTableModel ingredientTableModel = new DefaultTableModel();
         tblIngredients.setModel(ingredientTableModel);
