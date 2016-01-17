@@ -1,6 +1,7 @@
 package dhh.presentation;
 
 import dhh.businesslogic.ManageManager;
+import dhh.domain.Ingredient;
 import dhh.domain.manageDish;
 import java.sql.Time;
 import java.text.DateFormat;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 public class ManageDishPanel extends javax.swing.JPanel {
     manageDish currentDish;
@@ -63,6 +64,25 @@ public class ManageDishPanel extends javax.swing.JPanel {
                 cmbCategory.setSelectedIndex(i);
             }
         }
+        
+        
+        DefaultTableModel ingredientTableModel = new DefaultTableModel();
+        tblIngredients.setModel(ingredientTableModel);
+        ingredientTableModel.addColumn("Ingrediëntnaam"); 
+        ingredientTableModel.addColumn("Hoeveelheid");
+        
+        tblIngredients.getColumnModel().getColumn(1).setMinWidth(100);
+        tblIngredients.getColumnModel().getColumn(1).setMaxWidth(100);
+        
+        ArrayList<Ingredient> ingredientsList = manager.getIngredients(currentDish.getName());
+        
+        if(ingredientsList.size() > 0){
+            for (Ingredient currentIngredient : ingredientsList) {
+                ingredientTableModel.addRow(new Object[]{currentIngredient.getName(), currentIngredient.getAmount() + " " + currentIngredient.getMeasurement()});
+            }
+        }
+        else
+            ingredientTableModel.addRow(new Object[]{"Geen ingrediënten gevonden"});
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -120,18 +140,18 @@ public class ManageDishPanel extends javax.swing.JPanel {
 
         tblIngredients.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane2.setViewportView(tblIngredients);
 
-        btnAddIngredient.setText("Voeg ingrediënt toe");
+        btnAddIngredient.setText("Wijzig ingrediënten");
 
         btnSave.setText("Bewerk");
         btnSave.addActionListener(new java.awt.event.ActionListener() {

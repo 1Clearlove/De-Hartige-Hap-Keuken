@@ -1,6 +1,7 @@
 package dhh.businesslogic;
 
 import dhh.datastorage.DishDAO;
+import dhh.domain.Ingredient;
 import dhh.domain.manageDish;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -78,6 +79,25 @@ public class ManageManager {
         }
         
         return currentDish;
+    }
+    
+    public ArrayList<Ingredient> getIngredients(String dishName){
+        DishDAO dishDAO = new DishDAO();
+        ResultSet dishData = dishDAO.getIngredients(dishName);
+        
+        ArrayList<Ingredient> ingredientsList = new ArrayList<>();
+        
+        try {
+            while(dishData.next()) { //Loop through all rows in the query result
+                ingredientsList.add(new Ingredient(dishData.getString(1), dishData.getDouble(2), dishData.getString(3)));
+            }
+        }        
+        
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return ingredientsList;
     }
     
     public boolean updateDish(String oldDishName, manageDish currentDish){

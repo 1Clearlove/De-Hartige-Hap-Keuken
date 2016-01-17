@@ -96,6 +96,19 @@ public class DishDAO {
         return result;
     }
     
+    public ResultSet getIngredients(String dishName){
+        ResultSet result = null;
+        
+        if(db.openConnection()){ 
+            result = db.executeSelectionStatement("SELECT i.ingredientName, c.amount, i.measurement " +
+            "FROM dhh_ingredient i " +  
+            "JOIN dhh_itemingredient c ON c.INGREDIENTingredientName = i.ingredientName " +
+            "WHERE ITEMitemName = '" + dishName + "'");
+        }
+        
+        return result;
+    }
+    
     public boolean updateDish(String oldDishName, manageDish currentDish){
         int result = 0;
         
