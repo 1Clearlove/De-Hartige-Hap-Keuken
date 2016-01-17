@@ -96,10 +96,7 @@ public class loginPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "This email address does not belong to a master chef");
             }else{
                 if(email.equals(Lmanager.checkLogin(email))){
-
                     JFrame frame = getParentFrame();
-                    
-
                     frame.dispose();
                     OrderFrame hframe = new OrderFrame();
                     hframe.createPanel();

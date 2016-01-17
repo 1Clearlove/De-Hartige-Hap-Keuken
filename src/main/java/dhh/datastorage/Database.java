@@ -68,7 +68,7 @@ public class Database {
         return result;
     }
     
-    public int executeUpdateStatement(String query) { //iemand moet hier nog ff naar kijken, hij kijkt nu hoeveel queries er geupdate zijn
+    public int executeUpdateStatement(String query) {
         int result = 0;
         
         try {

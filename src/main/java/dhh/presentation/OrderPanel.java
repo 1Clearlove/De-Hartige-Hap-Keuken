@@ -19,6 +19,7 @@ public class OrderPanel extends javax.swing.JPanel {
     private DefaultTableModel dishTableModel;
     private int refreshTime = 15;
     private int currentTime;
+    private OrderManager manager;
     
     public OrderPanel() {
         initComponents();        
@@ -120,8 +121,7 @@ public class OrderPanel extends javax.swing.JPanel {
         dishTableModel.addColumn("Besteld"); 
         dishTableModel.addColumn("Opmerkingen");                              
         dishTableModel.addColumn("Gereed melden"); 
-        OrderManager manager = new OrderManager();
-        
+        manager = new OrderManager();
 
         tblOrders.getColumnModel().getColumn(0).setMinWidth(100);
         tblOrders.getColumnModel().getColumn(0).setMaxWidth(100);
@@ -142,7 +142,10 @@ public class OrderPanel extends javax.swing.JPanel {
         {
             public void actionPerformed(ActionEvent e)
             {
-                //manager.readyDish(dish);
+                int selectedRowIndex = tblOrders.getSelectedRow();
+                int orderNumber = (int)tblOrders.getModel().getValueAt(selectedRowIndex, 0);
+                
+                manager.readyDish(orderNumber);
                 JOptionPane.showMessageDialog(btnRefresh, "Gerecht is gereed gemeld!");
             }
         };

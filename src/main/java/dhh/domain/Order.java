@@ -10,7 +10,7 @@ public class Order {
     
     private ArrayList<Dish> dishes;
     
-    public Order(int orderNumber, int tableNumber) {
+    public Order(int tableNumber, int orderNumber) {
         this.orderNumber = orderNumber;
         this.tableNumber = tableNumber;
         dishes = new ArrayList<>();

@@ -26,7 +26,7 @@ public class DishDAO {
             "JOIN dhh_course ON dhh_course.courseName = dhh_item.COURSEcourseName " +
             "JOIN dhh_itemcategory ON dhh_itemcategory.categoryName = dhh_item.ITEMCATEGORYcategoryName " +
             "JOIN dhh_dish ON dhh_dish.ITEMitemName = dhh_item.itemName " +
-            "WHERE dhh_orderstatus.statusName = UPPER('Besteld') OR dhh_orderstatus.statusName = UPPER('In behandeling')" +
+            "WHERE dhh_orderstatus.statusName = UPPER('Besteld') OR dhh_orderstatus.statusName = UPPER('In_behandeling')" +
             "ORDER BY dhh_receipt.receiptNo ASC");
         }
         return dishData;
@@ -71,13 +71,15 @@ public class DishDAO {
         return categoryData;
     }
     
-    public void readyDish(Dish dish){
+    public void readyDish(int currentOrder){
+        int readyDish = 0;
+        
         if(db.openConnection()){
-            //readyDishorder = db.executeUpdateStatement(null);
-            //"UPDATE dhh_orderline " +
-            //"SET ORDERSTATUSstatusName = "'Klaar'" + " + 
-            //"WHERE orderLineNo = "
-        }     
+            readyDish += db.executeUpdateStatement("UPDATE dhh_orderline "
+                    + "SET ORDERSTATUSstatusName='Klaar' "
+                    + "WHERE orderLineNo='" + currentOrder + "'");
+
+        }  
     }
     
     public ResultSet getManageDishFromName(String dishName) {
@@ -110,7 +112,7 @@ public class DishDAO {
     
     public void deleteIngredientFromDish(String dishName, String ingredientName) {                
         if(db.openConnection()) {
-            db.executeDeleteStatement("DELETE FROM dhh_itemingredient WHERE ITEMitemName='" + dishName + "' AND INGREDIENTingredientName='" + ingredientName + "'");
+            db.executeUpdateStatement("DELETE FROM dhh_itemingredient WHERE ITEMitemName='" + dishName + "' AND INGREDIENTingredientName='" + ingredientName + "'");
         }
     }
     
